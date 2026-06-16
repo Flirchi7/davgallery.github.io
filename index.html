@@ -1,17 +1,330 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina | Classic Photography Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --grey-dark: #1a1a1a;
+            --grey-light: #2d2d2d;
+            --yellow: #ffcc00;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Abstract Background Gloss */
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 204, 0, 0.07) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 10%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--yellow);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2071') center/cover no-repeat;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #bbb;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Glossy Button Style */
+        .btn {
+            background: linear-gradient(180deg, var(--yellow) 0%, #e6b800 100%);
+            color: black;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(255, 204, 0, 0.2), 
+                        inset 0 2px 2px rgba(255, 255, 255, 0.5); /* Shine effect */
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 204, 0, 0.4), 
+                        inset 0 2px 5px rgba(255, 255, 255, 0.7);
+        }
+
+        /* Booking Section - Glassmorphism */
+        .booking-container {
+            padding: 100px 10%;
+            background-color: var(--black);
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glossy overlay on card hover */
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--yellow);
+            transform: translateY(-10px);
+        }
+
+        .glass-card h3 {
+            color: var(--yellow);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .glass-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .glass-card ul {
+            list-style: none;
+            margin-bottom: 2rem;
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        .glass-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Form Styling */
+        .booking-form {
+            max-width: 800px;
+            margin: 5rem auto 0;
+            padding: 4rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 10px;
+            color: white;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--yellow);
+            background: rgba(255,255,255,0.1);
+        }
+
+        footer {
+            padding: 4rem 10%;
+            text-align: center;
+            background: var(--grey-dark);
+            border-top: 1px solid var(--glass-border);
+            color: #666;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>Contact me on WhatsApp</p>
 
-    <a href="https://wa.me/233539302559">
-        Chat on WhatsApp
-    </a>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <div class="bg-glow"></div>
 
+    <nav>
+        <div class="logo">Lumina</div>
+        <div class="nav-links">
+            <a href="#">Gallery</a>
+            <a href="#">Services</a>
+            <a href="#">Journal</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <p>PREMIUM PHOTOGRAPHY STUDIO</p>
+        <h1>Crafting Timeless<br>Visual Narratives</h1>
+        <a href="#book" class="btn">Reserve a Session</a>
+    </section>
+
+    <section class="booking-container" id="book">
+        <h2 class="section-title">Investment & Packages</h2>
+        
+        <div class="grid">
+            <!-- Card 1 -->
+            <div class="glass-card">
+                <h3>Portraits</h3>
+                <span class="price">$350</span>
+                <ul>
+                    <li>60 Minute Session</li>
+                    <li>15 Retouched Images</li>
+                    <li>Online Gallery</li>
+                    <li>1 Location</li>
+                </ul>
+                <a href="#" class="btn" style="padding: 0.8rem 2rem; font-size: 0.8rem;">Select</a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-card" style="border-color: var(--yellow);">
+                <div style="position: absolute; top: 15px; right: 15px; background: var(--yellow); color: black; font-size: 10px; padding: 2px 10px; border-radius: 10px; font-weight: bold;">POPULAR</div>
+                <h3>Editorial</h3>
+                <span class="price">$750</span>
+                <ul>
+                    <li>3 Hour Session</li>
+                    <li>40 Retouched Images</li>
+                    <li>Full Commercial Rights</li>
+                    <li>2 Locations</li>
+                </ul>
+                <a href="#" class="btn" style="padding: 0.8rem 2rem; font-size: 0.8rem;">Select</a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card">
+                <h3>Commercial</h3>
+                <span class="price">$1,200+</span>
+                <ul>
+                    <li>Full Day Coverage</li>
+                    <li>Unlimited Retouching</li>
+                    <li>High-Res Video Clips</li>
+                    <li>Studio or Site</li>
+                </ul>
+                <a href="#" class="btn" style="padding: 0.8rem 2rem; font-size: 0.8rem;">Select</a>
+            </div>
+        </div>
+
+        <div class="booking-form">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-family: 'Playfair Display';">Inquiry Form</h2>
+            <form>
+                <div style="display: flex; gap: 1rem;">
+                    <div class="form-group" style="flex: 1;">
+                        <input type="text" placeholder="Full Name">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <input type="email" placeholder="Email Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select>
+                        <option>Select Package</option>
+                        <option>Portrait</option>
+                        <option>Editorial</option>
+                        <option>Commercial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea rows="5" placeholder="Tell us about your project..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; border: none; cursor: pointer;">Send Booking Request</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
 <script>
 function payWithPaystack() {
   let handler = PaystackPop.setup({
@@ -22,83 +335,8 @@ function payWithPaystack() {
     callback: function(response) {
       alert('Payment successful. Ref: ' + response.reference);
     }
-  });
-
-  handler.openIframe();
-<title>David Photography Booking</title>
-    
-<header>
-<h1>David Photography</h1>
-<p>Book Your Photography Session</p>
-</header>
-
-<div class="container">
-
-<form id="bookingForm">
-
-<label>Full Name</label>
-<input type="text" id="name" required>
-
-<label>Phone Number</label>
-<input type="tel" id="phone" required>
-
-<label>Email</label>
-<input type="email" id="email">
-
-<label>Event Type</label>
-<select id="event">
-<option>Wedding</option>
-<option>Birthday</option>
-<option>Corporate Event</option>
-<option>Graduation</option>
-<option>Outdoor Shoot</option>
-<option>Other</option>
-</select>
-
-<label>Event Date</label>
-<input type="date" id="date" required>
-
-<label>Location</label>
-<input type="text" id="location">
-
-<label>Additional Details</label>
-<textarea id="details" rows="4"></textarea>
-
-<button type="button" onclick="sendBooking()">
-Book via WhatsApp
-</button>
-
-</form>
-
-</div>
-
-<script>
-function sendBooking(){
-
-let name = document.getElementById("name").value;
-let phone = document.getElementById("phone").value;
-let email = document.getElementById("email").value;
-let event = document.getElementById("event").value;
-let date = document.getElementById("date").value;
-let location = document.getElementById("location").value;
-let details = document.getElementById("details").value;
-
-let message =
-`NEW PHOTO BOOKING
-
-Name: ${name}
-Phone: ${phone}
-Email: ${email}
-
-Event: ${event}
-Date: ${date}
-Location: ${location}
-
-Details:
-${details}`;
 
 let whatsapp = "https://wa.me/233539302559?text=" + encodeURIComponent(message);
-
 window.open(whatsapp, "_blank");
 }
 </script>
@@ -106,7 +344,9 @@ window.open(whatsapp, "_blank");
 
 </body>
     
-
+<footer>
+        <p>&copy; 2026 LUMINA STUDIO. ALL RIGHTS RESERVED. DESIGNED FOR EXCELLENCE.</p>
+    </footer>
 
 }
 </script>
