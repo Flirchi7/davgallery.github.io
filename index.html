@@ -10,8 +10,24 @@
     <a href="https://wa.me/233539302559">
         Chat on WhatsApp
     </a>
-    <a href="https://paystack.shop/pay/pk_live_34aa2918f395a8935c5b77e342eb84a01bb926c6">
-  <button>Pay Now</button>
-</a>
+   <button onclick="payWithPaystack()">Pay Now</button>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script>
+function payWithPaystack() {
+  let handler = PaystackPop.setup({
+    key: 'pk_test_a5708212fbf3f7eec52ab1e31f22fa608d787d8d',
+    email: 'customer@example.com',
+    amount: 5000, // Amount in pesewas (GHS 50 = 5000)
+    currency: 'GHS',
+    callback: function(response) {
+      alert('Payment successful. Ref: ' + response.reference);
+    }
+  });
+
+  handler.openIframe();
+}
+</script>
 </body>
 </html>
