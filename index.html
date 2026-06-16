@@ -10,58 +10,23 @@
     <a href="https://wa.me/233539302559">
         Chat on WhatsApp
     </a>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script>
+function payWithPaystack() {
+  let handler = PaystackPop.setup({
+    key: 'pk_test_a5708212fbf3f7eec52ab1e31f22fa608d787d8d',
+    email: 'customer@example.com',
+    amount: 5000, // Amount in pesewas (GHS 50 = 5000)
+    currency: 'GHS',
+    callback: function(response) {
+      alert('Payment successful. Ref: ' + response.reference);
+    }
+  });
+
+  handler.openIframe();
 <title>David Photography Booking</title>
-
-<style>
-body{
-    font-family: Arial, sans-serif;
-    background:#f5f5f5;
-    margin:0;
-    padding:0;
-}
-header{
-    background:#000;
-    color:white;
-    text-align:center;
-    padding:30px;
-}
-.container{
-    max-width:600px;
-    margin:30px auto;
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.1);
-}
-input, select, textarea{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
-button{
-    width:100%;
-    padding:15px;
-    background:#25D366;
-    color:white;
-    border:none;
-    border-radius:5px;
-    font-size:16px;
-    cursor:pointer;
-}
-button:hover{
-    opacity:.9;
-}
-</style>
-</head>
-<body>
-
+    
 <header>
 <h1>David Photography</h1>
 <p>Book Your Photography Session</p>
@@ -137,26 +102,12 @@ let whatsapp = "https://wa.me/233539302559?text=" + encodeURIComponent(message);
 window.open(whatsapp, "_blank");
 }
 </script>
+<button onclick="payWithPaystack()">Pay Now</button>
 
 </body>
-</html>
-   <button onclick="payWithPaystack()">Pay Now</button>
+    
 
-<script src="https://js.paystack.co/v1/inline.js"></script>
 
-<script>
-function payWithPaystack() {
-  let handler = PaystackPop.setup({
-    key: 'pk_test_a5708212fbf3f7eec52ab1e31f22fa608d787d8d',
-    email: 'customer@example.com',
-    amount: 5000, // Amount in pesewas (GHS 50 = 5000)
-    currency: 'GHS',
-    callback: function(response) {
-      alert('Payment successful. Ref: ' + response.reference);
-    }
-  });
-
-  handler.openIframe();
 }
 </script>
 </body>
