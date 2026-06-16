@@ -323,32 +323,9 @@
         </div>
     </section>
 
-</body>
-</html>
-<script>
-function payWithPaystack() {
-  let handler = PaystackPop.setup({
-    key: 'pk_test_a5708212fbf3f7eec52ab1e31f22fa608d787d8d',
-    email: 'customer@example.com',
-    amount: 5000, // Amount in pesewas (GHS 50 = 5000)
-    currency: 'GHS',
-    callback: function(response) {
-      alert('Payment successful. Ref: ' + response.reference);
-    }
-
-let whatsapp = "https://wa.me/233539302559?text=" + encodeURIComponent(message);
-window.open(whatsapp, "_blank");
-}
-</script>
-<button onclick="payWithPaystack()">Pay Now</button>
-
-</body>
-    
-<footer>
+    <footer>
         <p>&copy; 2026 LUMINA STUDIO. ALL RIGHTS RESERVED. DESIGNED FOR EXCELLENCE.</p>
     </footer>
 
-}
-</script>
 </body>
 </html>
